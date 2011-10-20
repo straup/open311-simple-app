@@ -1,22 +1,46 @@
 <?php
 
-	function statuses_status_map($string_keys){
+	##############################################################################
 
+	function statuses_get_statuses($args=array()){
+
+		# TO DO: ordering
 		# TO DO: caching
 		# TO DO: string keys
 
 		$sql = "SELECT * FROM Statuses";
-		$rsp = db_fetch($sql);
+		$rsp = db_fetch_paginated($sql, $args);
 
-		$map = array();
+		return $rsp;
+	}
 
-		foreach ($rsp['rows'] as $row){
-			$service_id = $row['id'];
-			unset($row['id']);
-			$map[$service_id] = $row;
+	##############################################################################
+
+	function statuses_add_status($name, $description=''){
+
+		$id = dbtickets_create();
+
+		$status = array(
+			'id' => $id,
+			'name' => $name,
+			'description' => $description,
+		);
+
+		$insert = array();
+
+		foreach ($status as $k => $v){
+			$insert[$k] = AddSlashes($v);
 		}
 
-		return $map;
+		$rsp = db_insert('Statuses', $insert);
+
+		if ($rsp['ok']){
+			$rsp['status'] = $status;
+		}
+
+		return $rsp;
 	}
+
+	##############################################################################
 
 ?>

@@ -45,15 +45,14 @@ CREATE TABLE `Statuses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Incidents` (
-  `id` INT(11) UNSIGNED NOT NULL,
+  `id` BIGINT(20) UNSIGNED NOT NULL,
   `service_id` INT(11) UNSIGNED NOT NULL,
   `status_id` INT(11) UNSIGNED NOT NULL,
   `user_id` INT(11) UNSIGNED NOT NULL,
   `created` DATETIME,
   `last_modified` DATETIME,
-  `latitude` INT(9) SIGNED,
-  `longitude` INT(9) SIGNED,
+  `latitude` DECIMAL(9,6),
+  `longitude` DECIMAL(9,6),
   `description` TEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

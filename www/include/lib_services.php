@@ -1,22 +1,53 @@
 <?php
 
-	function services_service_map($string_keys=0){
+	##############################################################################
 
-		# TO DO: caching
-		# TO DO: string keys
+	function services_get_services($args=array()){
 
 		$sql = "SELECT * FROM Services";
-		$rsp = db_fetch($sql);
+		$rsp = db_fetch_paginated($sql);
 
-		$map = array();
-
-		foreach ($rsp['rows'] as $row){
-			$service_id = $row['id'];
-			unset($row['id']);
-			$map[$service_id] = $row;
-		}
-
-		return $map;
+		return $rsp;
 	}
 
+	##############################################################################
+
+	function services_is_valid_service($service_id){
+
+		# TO DO: caching
+
+		$enc_id = AddSlashes($service_id);
+
+		$sql = "SELECT 1 FROM Services WHERE id='{$enc_id}'";
+		return db_single(db_fetch($sql));
+	}
+
+	##############################################################################
+
+	function services_add_service($name, $description=''){
+
+		$id = dbtickets_create();
+
+		$service = array(
+			'id' => $id,
+			'name' => $name,
+			'description' => $description,
+		);
+
+		$insert = array();
+
+		foreach ($service as $k => $v){
+			$insert[$k] = AddSlashes($v);
+		}
+
+		$rsp = db_insert('Services', $insert);
+
+		if ($rsp['ok']){
+			$rsp['service'] = $service;
+		}
+
+		return $rsp;
+	}
+
+	##############################################################################
 ?>
