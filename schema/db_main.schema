@@ -25,3 +25,35 @@ CREATE TABLE `users_password_reset` (
   KEY `by_user` (`user_id`),
   KEY `by_timestamp` (`created`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `Services`;
+
+CREATE TABLE `Services` (
+  `id` INT(11) UNSIGNED NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `Statuses`;
+
+CREATE TABLE `Statuses` (
+  `id` INT(11) UNSIGNED NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Incidents` (
+  `id` INT(11) UNSIGNED NOT NULL,
+  `service_id` INT(11) UNSIGNED NOT NULL,
+  `status_id` INT(11) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  `created` DATETIME,
+  `last_modified` DATETIME,
+  `latitude` INT(9) SIGNED,
+  `longitude` INT(9) SIGNED,
+  `description` TEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
