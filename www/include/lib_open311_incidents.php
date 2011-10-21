@@ -26,8 +26,14 @@
 
 		$dt = gmdate($fmt, $now);
 
-		# $incident['id'] = dbtickets_create();
-		# $incident['created'] = $dt;
+		if (! isset($incident['id'])){
+			$incident['id'] = dbtickets_create();
+		}
+
+		if (! isset($incident['created'])){
+			$incident['created'] = $dt;
+		}
+
 		$incident['last_modified'] = $dt;
 		$incident['status_id'] = 1;	# FIX ME: read from database?
 
