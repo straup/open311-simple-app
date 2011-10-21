@@ -112,6 +112,7 @@
 			"requires_auth": 0,
 			"paginated": 1,
 			"method": "GET",
+			"library": "api_open311_where",
 			"example" : "file://./api-methods-examples/open311.where.getList.json"
 		}
 		
