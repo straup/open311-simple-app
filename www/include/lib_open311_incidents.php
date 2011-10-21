@@ -2,14 +2,14 @@
 
 	##############################################################################
 
-	function incidents_scrub_incident($incident){
+	function open311_incidents_scrub_incident($incident){
 		unset($incident['user_id']);
 		return $incident;
 	}
 
 	##############################################################################
 
-	function incidents_get_by_id($incident_id){
+	function open311_incidents_get_by_id($incident_id){
 
 		$enc_id = AddSlashes($incident_id);
 
@@ -19,7 +19,7 @@
 
 	##############################################################################
 
-	function incidents_add_incident($incident){
+	function open311_incidents_add_incident($incident){
 
 		$id = dbtickets_create();
 

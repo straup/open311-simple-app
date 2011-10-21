@@ -1,13 +1,12 @@
 <?php
 
-	loadlib("incidents_search");
-
 	##############################################################################
 
-	function api_where_getList(){
+	function open311_where_map(){
 
-		$map = incidents_search_where_map();
-		api_output_ok($map);
+		$map = array(
+			"bbox" => "",
+		);
 	}
 
 	##############################################################################

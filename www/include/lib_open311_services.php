@@ -2,7 +2,7 @@
 
 	##############################################################################
 
-	function services_get_services($args=array()){
+	function open311_services_get_services($args=array()){
 
 		$sql = "SELECT * FROM Services";
 		$rsp = db_fetch_paginated($sql);
@@ -12,7 +12,7 @@
 
 	##############################################################################
 
-	function services_is_valid_service($service_id){
+	function open311_services_is_valid_service($service_id){
 
 		# TO DO: caching
 
@@ -24,7 +24,7 @@
 
 	##############################################################################
 
-	function services_add_service($name, $description=''){
+	function open311_services_add_service($name, $description=''){
 
 		$id = dbtickets_create();
 

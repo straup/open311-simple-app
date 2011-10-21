@@ -2,7 +2,7 @@
 
 	##############################################################################
 
-	function statuses_get_statuses($args=array()){
+	function open311_statuses_get_statuses($args=array()){
 
 		# TO DO: ordering
 		# TO DO: caching
@@ -16,7 +16,7 @@
 
 	##############################################################################
 
-	function statuses_add_status($name, $description=''){
+	function open311_statuses_add_status($name, $description=''){
 
 		$id = dbtickets_create();
 

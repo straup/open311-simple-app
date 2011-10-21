@@ -1,10 +1,10 @@
 <?php
 
-	loadlib("services");
+	loadlib("open311_statuses");
 
 	##############################################################################
 
-	function api_services_getList(){
+	function api_open311_statuses_getList(){
 
 		$args = array();
 
@@ -16,7 +16,7 @@
 			$args['per_page'] = $per_page;
 		}
 
-		$rsp = services_get_services($args);
+		$rsp = open311_statuses_get_statuses($args);
 
 		# TO DO: add pagination variables
 
@@ -25,10 +25,4 @@
 
 	##############################################################################
 
-	function api_services_getInfo(){
-
-		# please write me...
-	}
-
-	##############################################################################
 ?>

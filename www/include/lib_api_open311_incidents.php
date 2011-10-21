@@ -1,11 +1,11 @@
 <?php
 
-	loadlib("services");
-	loadlib("statuses");
-	loadlib("incidents");
+	loadlib("open311_services");
+	loadlib("open311_statuses");
+	loadlib("open311_incidents");
 	loadlib("geo_utils");
 
-	function api_incidents_report(){
+	function api_open311_incidents_report(){
 
 		$service_id = post_int32("service_id");
 
@@ -51,7 +51,7 @@
 			'description' => $desc,
 		);
 
-		$rsp = incidents_add_incident($incident);
+		$rsp = open311_incidents_add_incident($incident);
 
 		if (! $rsp['ok']){
 			api_output_error(999, $rsp['error']);
@@ -65,7 +65,7 @@
 
 	##############################################################################
 
-	function api_incidents_getInfo(){
+	function api_open311_incidents_getInfo(){
 
 		$id = get_int64("incident_id");
 
@@ -73,13 +73,13 @@
 			api_output_error(999, "Missing incident ID");
 		}
 
-		$incident = incidents_get_by_id($id);
+		$incident = open311_incidents_get_by_id($id);
 
 		if (! $incident){
 			api_output_error(999, "Invalid incident ID");
 		}
 
-		$incident = incidents_scrub_incident($incident);
+		$incident = open311_incidents_scrub_incident($incident);
 
 		api_output_ok($incident);
 		exit();
@@ -87,28 +87,7 @@
 
 	##############################################################################
 
-	function api_incidents_getStatuses(){
-
-		$args = array();
-
-		if ($page = get_int32("page")){
-			$args['page'] = $page;
-		}
-
-		if ($per_page = get_int32("per_page")){
-			$args['per_page'] = $per_page;
-		}
-
-		$rsp = statuses_get_statuses($args);
-
-		# TO DO: add pagination variables
-
-		return api_output_ok($rsp['rows']);
-	}
-
-	##############################################################################
-
-	function api_incidents_search(){
+	function api_open311_incidents_search(){
 
 		# please write me...
 	}
