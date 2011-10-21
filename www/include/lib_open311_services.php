@@ -5,7 +5,7 @@
 	function open311_services_get_services($args=array()){
 
 		$sql = "SELECT * FROM Services";
-		$rsp = db_fetch_paginated($sql);
+		$rsp = db_fetch_paginated($sql, $args);
 
 		return $rsp;
 	}
@@ -47,6 +47,18 @@
 		}
 
 		return $rsp;
+	}
+
+	##############################################################################
+
+	function open311_services_get_by_id($id){
+
+		# TO DO: caching
+
+		$enc_id = AddSlashes($id);
+
+		$sql = "SELECT * FROM Services WHERE id='{$enc_id}'";
+		return db_single(db_fetch($sql));
 	}
 
 	##############################################################################
