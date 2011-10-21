@@ -35,11 +35,21 @@
  			header("Status: 500 Server Error");
 		}
 
+		/*
 		if (isset($more['cors_allow'])){
 			header("Access-Control-Allow-Origin: " . htmlspecialchars($more['cors_allow']));
 		}
 
 		if (! isset($more['inline'])){
+			header("Content-Type: text/json");
+		}
+		*/
+
+		# open311-simple-app defaults
+
+		header("Access-Control-Allow-Origin: " . htmlspecialchars($more['cors_allow']));
+
+		if (! request_str("inline")){
 			header("Content-Type: text/json");
 		}
 

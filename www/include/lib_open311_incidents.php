@@ -21,20 +21,19 @@
 
 	function open311_incidents_add_incident($incident){
 
-		$id = dbtickets_create();
-
-		$fmt = 'FIX ME';
+		$fmt = 'Y-m-d H:i:s';
 		$now = time();
 
 		$dt = gmdate($fmt, $now);
 
-		$incident['id'] = $id;
-		$incident['created'] = $dt;
+		# $incident['id'] = dbtickets_create();
+		# $incident['created'] = $dt;
 		$incident['last_modified'] = $dt;
+		$incident['status_id'] = 1;	# FIX ME: read from database?
 
 		$insert = array();
 
-		foreach ($status as $k => $v){
+		foreach ($incident as $k => $v){
 			$insert[$k] = AddSlashes($v);
 		}
 

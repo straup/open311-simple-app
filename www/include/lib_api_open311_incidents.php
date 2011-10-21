@@ -5,6 +5,8 @@
 	loadlib("open311_incidents");
 	loadlib("geo_utils");
 
+	##############################################################################
+
 	function api_open311_incidents_report(){
 
 		$service_id = post_int32("service_id");
@@ -57,7 +59,7 @@
 			api_output_error(999, $rsp['error']);
 		}
 
-		$out = array('id' = $rsp['incident']['id']);
+		$out = array('id' => $rsp['incident']['id']);
 
 		api_output_ok($out);
 		exit();
