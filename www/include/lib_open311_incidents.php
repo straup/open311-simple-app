@@ -34,8 +34,11 @@
 			$incident['created'] = $dt;
 		}
 
+		if (! isset($incident['status_id'])){
+			$incident['status_id'] = 1;	# FIX ME: read from database?
+		}
+
 		$incident['last_modified'] = $dt;
-		$incident['status_id'] = 1;	# FIX ME: read from database?
 
 		$insert = array();
 

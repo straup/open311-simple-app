@@ -81,7 +81,7 @@
 			api_output_error(999, "Invalid incident ID");
 		}
 
-		$incident = open311_incidents_scrub_incident($incident);
+		$incident = _api_open311_incidents_prep_incident($incident);
 
 		api_output_ok($incident);
 		exit();
@@ -92,6 +92,21 @@
 	function api_open311_incidents_search(){
 
 		# please write me...
+	}
+
+	##############################################################################
+
+	function _api_open311_incidents_prep_incident($incident){
+
+		$incident = open311_incidents_scrub_incident($incident);
+		$incident['latitude'] = floatval($incident['latitude']);
+		$incident['longitude'] = floatval($incident['longitude']);
+		$incident['status_id'] = intval($incident['status_id']);
+		$incident['service_id'] = intval($incident['service_id']);
+
+		# incident IDs are BIGINTS...
+
+		return $incident;
 	}
 
 	##############################################################################
