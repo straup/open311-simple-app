@@ -39,6 +39,7 @@
 			"paginated": 1,
 			"method": "GET",
 			"requires_auth": 0,
+			"library": "api_open311_statuses",
 			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json"
 		},
 				

@@ -4,14 +4,22 @@
 
 	function open311_statuses_get_statuses($args=array()){
 
-		# TO DO: ordering
-		# TO DO: caching
-		# TO DO: string keys
-
 		$sql = "SELECT * FROM Statuses";
 		$rsp = db_fetch_paginated($sql, $args);
 
 		return $rsp;
+	}
+
+	##############################################################################
+
+	function open311_statuses_is_valid_status($status_id){
+
+		# TO DO: caching
+
+		$enc_id = AddSlashes($status_id);
+
+		$sql = "SELECT 1 FROM Services WHERE id='{$enc_id}'";
+		return db_single(db_fetch($sql));
 	}
 
 	##############################################################################
