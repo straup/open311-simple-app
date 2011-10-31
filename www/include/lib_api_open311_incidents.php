@@ -15,7 +15,7 @@
 			api_output_error(999, "Missing service ID");
 		}
 
-		if (! services_is_valid_service($service_id)){
+		if (! open311_services_is_valid_service($service_id)){
 			api_output_error(999, "Invalid service ID");
 		}
 

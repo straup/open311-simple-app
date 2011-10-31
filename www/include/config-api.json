@@ -45,10 +45,10 @@
 				
 		"open311.incidents.report": {
 			"description": "Report an incident for a given service. Returns a unique ID for the incident that may be used to call the _open311.incidents.status_ API method.",
-			"enabled": 0,
+			"enabled": 1,
 			"documented": 1,
 			"method": "POST",
-			"requires_auth": 1,
+			"requires_auth": 0,
 			"library": "api_open311_incidents",
 			"parameters": [
 				{ "name": "service_id", "description": "A valid service_id as defined by the city operating the Open 311 (Simple) API", "required": 1 },
