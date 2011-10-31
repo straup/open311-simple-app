@@ -3,6 +3,9 @@
 	loadlib("open311_services");
 	loadlib("open311_statuses");
 	loadlib("open311_incidents");
+	loadlib("open311_search");
+	loadlib("open311_where");
+	loadlib("open311_when");
 	loadlib("geo_utils");
 
 	##############################################################################
@@ -91,7 +94,120 @@
 
 	function api_open311_incidents_search(){
 
-		# please write me...
+		foreach (array('incident_id') as $k){
+
+			$ids = array();
+
+			if ($v = get_str($k)){
+
+				foreach (explode(",", $v) as $id){
+
+					if (! sanitize_int64($id)){
+						api_output_error(999, "Invalid ID ('{$k}')");
+					}
+
+					$ids[] = $id;
+				}
+
+				$args[$k] = $id;
+			}
+		}
+
+		foreach (array('service_id', 'status_id') as $k){
+
+			if ($v = get_str($k)){
+
+				foreach (explode(",", $v) as $id){
+
+					if (! sanitize_int64($id)){
+						api_output_error(999, "Invalid ID ('{$k}')");
+					}
+
+					$ids[] = $id;
+				}
+
+				$args[$k] = $id;
+			}
+		}
+
+		foreach (array('created', 'modified') as $k){
+
+			if ($v = get_str($k)){
+
+				$v = filter_strict(trim($v));
+
+				if (! $v){
+					api_output_error(999, "Invalid '{$k}' date");
+				}
+
+				foreach (explode(";", $v) as $dt){
+
+					if (! open311_when_is_valid_date($dt)){
+						api_output_error(999, "Invalid '{$k}' date");
+					}
+				}
+
+				$args[$k] = $v;
+			}
+		}
+
+		foreach (array('where') as $k){
+
+			if ($v = get_str($k)){
+
+				$v = filter_strict(trim($v));
+
+				if (! $v){
+					api_output_error(999, "Invalid where parameter ('{$k}')");
+				}
+
+				if (! open311_where_is_valid_prefix($k)){
+					api_output_error(999, "Invalid where parameter ('{$k}')");
+				}
+			}
+		}
+
+		if (! count($args)){
+			api_output_error(999, "parameterless searches are not allowed");
+		}
+
+		if ($page = get_int32("page")){
+			$args['page'] = $page;
+		}
+
+		if ($per_page = get_int32("per_page")){
+			$args['per_page'] = $per_page;
+		}
+
+		if (! $args['per_page']){
+			$args['per_page'] = $GLOBALS['cfg']['api_per_page_default'];
+		}
+
+		else if ($args['per_page'] > $GLOBALS['cfg']['api_per_page_maximum']){
+			$args['per_page'] = $GLOBALS['cfg']['api_per_page_maximum'];
+		}
+
+		$rsp = open311_search($args);
+
+		if (! $rsp['ok']){
+			api_output_error(999, $rsp['error']);
+		}
+
+		$rows = array();
+
+		foreach ($rsp['rows'] as $row){
+			$rows[] = _api_open311_incidents_prep_incident($row);
+		}
+
+		$out = array(
+			'total' => $rsp['pagination']['total_count'],
+			'page' => $rsp['pagination']['page'],
+			'per_page' => $rsp['pagination']['per_page'],
+			'pages' => $rsp['pagination']['page_count'],
+			'incidents' => $rows,
+		);
+
+		return api_output_ok($out);
 	}
 
 	##############################################################################
