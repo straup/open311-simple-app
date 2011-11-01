@@ -82,7 +82,7 @@
 		
 		"open311.incidents.search": {
 			"description": "Returns a list of incidents matching a search criteria as defined by the API request.",
-			"enabled": 0,
+			"enabled": 1,
 			"documented": 1,
 			"paginated": 1,
 			"method": "GET",

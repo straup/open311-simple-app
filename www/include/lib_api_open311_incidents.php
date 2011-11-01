@@ -161,9 +161,11 @@
 					api_output_error(999, "Invalid where parameter ('{$k}')");
 				}
 
-				if (! open311_where_is_valid_prefix($k)){
-					api_output_error(999, "Invalid where parameter ('{$k}')");
+				if (! open311_where_is_valid_prefix($v)){
+					api_output_error(999, "Invalid where parameter ('{$k}') 2");
 				}
+
+				$args[$k] = $v;
 			}
 		}
 

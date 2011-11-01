@@ -37,8 +37,36 @@
 
 	##############################################################################
 
+	# Not sure I like this returning SQL but it will do for now...
+	# (20111031/straup)
+
 	function open311_where_parse($str){
-		# please write me
+
+		list ($prefix, $coords) = explode(":", $str, 2);
+
+		if ($prefix == 'bbox'){
+
+			list($swlat, $swlon, $nelat, $nelon) = $coords;
+
+			$enc_swlat = AddSlashes($swlat);
+			$enc_swlon = AddSlashes($swlon);
+			$enc_nelat = AddSlashes($nelat);
+			$enc_nelon = AddSlashes($nelon);
+
+			$query = array(
+				"latitude BETWEEN '{$enc_swlat}' AND '{$enc_nelat}'",
+				"longitude BETWEEN '{$enc_swlon}' AND '{$enc_nelon}'",
+			);
+
+			return "(" . implode(" AND ", $query) . ")";
+		}
+
+		if ($prefix == 'zip'){
+			$enc_zip = AddSlashes($coords);
+			return "zipcode='{$enc_zip}'";
+		}
+
+		return;
 	}
 
 	##############################################################################

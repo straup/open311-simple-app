@@ -85,19 +85,49 @@
 			}
 		}
 
+		# this needs a bit more thought than I can give it right now
+		# (20111031/straup)
+
+		/*
 		if (isset($args['created'])){
 
-			$dates = open311_when_parse($args['created']);
+			list($start, $stop) = open311_when_parse($args['created']);
+
+			if ($start == $stop){
+				$enc_start = AddSlashes($start);
+				$query[] = "created='{$enc_start}'";
+			}
+
+			else {
+				$enc_start = AddSlashes($start);
+				$enc_stop = AddSlashes($stop);
+				$query[] = "created BETWEEN '{$enc_start}' AND '{$enc_stop}'";
+			}
 		}
 
 		if (isset($args['modified'])){
 
-			$dates = open311_when_parse($args['modified']);
+			list($start, $stop) = open311_when_parse($args['modified']);
+
+			if ($start == $stop){
+				$enc_start = AddSlashes($start);
+				$query[] = "last_modified='{$enc_start}'";
+			}
+
+			else {
+				$enc_start = AddSlashes($start);
+				$enc_stop = AddSlashes($stop);
+				$query[] = "last_modified BETWEEN '{$enc_start}' AND '{$enc_stop}'";
+			}
 		}
+
+		*/
 
 		if (isset($args['where'])){
 
-			$where = open311_where_parse($args['where']);
+			if ($where = open311_where_parse($args['where'])){
+				$query[] = $where;
+			}
 		}
 
 		$sql = "SELECT * FROM Incidents WHERE " . implode(" AND ", $query);
@@ -106,4 +136,5 @@
 	}
 
 	##############################################################################
+
 ?>
