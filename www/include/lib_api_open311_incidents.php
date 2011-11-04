@@ -84,10 +84,64 @@
 			api_output_error(999, "Invalid incident ID");
 		}
 
+		$rsp = open311_incidents_get_notes($incident);
+
+		# throw an error, if not?
+
+		if ($rsp['ok']){
+			$incident['notes'] = $rsp['rows'];
+		}
+
 		$incident = _api_open311_incidents_prep_incident($incident);
 
 		api_output_ok($incident);
 		exit();
+	}
+
+	##############################################################################
+
+	function api_open311_incidents_addNote(){
+
+		$iid = post_int64("incident_id");
+
+		if (! $iid){
+			api_error_output(999, "Missing incident ID");
+		}
+
+		$incident = incidents_get_by_id($iid);
+
+		if (! $incident['id']){
+			api_error_output(999, "Invalid incident ID");
+		}
+
+		$note = post_str("note");
+
+		if (! $note){
+			api_error_output(999, "Missing note");
+		}
+
+		$note = trim(filter_strict($note));
+
+		if (! $note){
+			api_error_output(999, "Invalid note");
+		}
+
+		$public = (post_str("public")) ? 1 : 0;
+
+		$note = array(
+			'incident_id' => $incident['id'],
+			'public' => $public,
+			'note' => $note,
+			'user_id' => $GLOBALS['cfg']['user']['id'],
+		);
+
+		$rsp = incidents_open311_add_note($incident, $note);
+
+		if (! $rsp['ok']){
+			api_error_output(999, $rsp['error']);
+		}
+
+		api_output_ok();		
 	}
 
 	##############################################################################

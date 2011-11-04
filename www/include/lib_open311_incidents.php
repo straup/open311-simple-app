@@ -27,7 +27,7 @@
 		$dt = gmdate($fmt, $now);
 
 		if (! isset($incident['id'])){
-			$incident['id'] = dbtickets_create();
+			$incident['id'] = dbtickets_create(64);
 		}
 
 		if (! isset($incident['created'])){
@@ -57,4 +57,45 @@
 
 	##############################################################################
 
+	function open311_incidents_add_note(&$incident, $note){
+
+		$id = dbtickets_create(64);
+		$now = time();
+
+		$note['id'] = $id;
+		$note['created'] = $now;
+		$note['last_modified'] = $now;
+
+		$insert = array();
+
+		foreach ($note as $k => $v){
+			$insert[$k] = AddSlashes($v);
+		}
+
+		$rsp = db_insert('IncidentsNotes', $insert);
+
+		if ($rsp['ok']){
+			$rsp['note'] = $note;
+		}
+
+		return $rsp;
+	}
+
+	##############################################################################
+
+	function open311_incidents_get_notes(&$incidents, $only_public=1){
+
+		$sql = "SELECT * FROM IncidentsNotes WHERE incident_id='{$enc_id}'";
+
+		if ($only_public){
+			$sql .= " AND public=1";
+		}
+
+		$sql .= " ORDER BY created DESC";
+
+		# paginate?
+		return db_fetch($sql);
+	}
+
+	##############################################################################
 ?>

@@ -44,6 +44,8 @@ CREATE TABLE `Statuses` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `Incidents`;
+
 CREATE TABLE `Incidents` (
   `id` BIGINT(20) UNSIGNED NOT NULL,
   `service_id` INT(11) UNSIGNED NOT NULL,
@@ -56,6 +58,8 @@ CREATE TABLE `Incidents` (
   `description` TEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `IncidentsNotes`;
 
 CREATE TABLE `IncidentsNotes` (
   `id` BIGINT(20) UNSIGNED NOT NULL,

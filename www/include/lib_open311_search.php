@@ -51,7 +51,7 @@
 
 			if (! is_array($args['incident_id'])){
 				$enc_id = AddSlashes($args['incident_id']);
-				$query[] = "incident_id='{$enc_id}'";
+				$query[] = "id='{$enc_id}'";
 			}
 
 			else {
@@ -62,7 +62,7 @@
 				}
 
 				$ids = implode(",", $ids);
-				$query[] = "(incident_id IN ($ids))";
+				$query[] = "(id IN ($ids))";
 			}
 		}
 
