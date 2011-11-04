@@ -56,3 +56,15 @@ CREATE TABLE `Incidents` (
   `description` TEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `IncidentsNotes` (
+  `id` BIGINT(20) UNSIGNED NOT NULL,
+  `incident_id` BIGINT(20) UNSIGNED NOT NULL,
+  `public` TINYINT(3) UNSIGNED NOT NULL,
+  `user_id` INT(11) UNSIGNED NOT NULL,
+  `note` TEXT,
+  `created` DATETIME,
+  `last_modified` DATETIME,
+  PRIMARY KEY (`id`),
+  KEY `by_incident` (`incident_id`, `created`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
