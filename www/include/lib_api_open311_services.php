@@ -8,32 +8,15 @@
 
 		$args = array();
 
-		if ($page = get_int32("page")){
-			$args['page'] = $page;
-		}
-
-		if ($per_page = get_int32("per_page")){
-			$args['per_page'] = $per_page;
-		}
-
-		if (! $args['per_page']){
-			$args['per_page'] = $GLOBALS['cfg']['api_per_page_default'];
-		}
-
-		else if ($args['per_page'] > $GLOBALS['cfg']['api_per_page_maximum']){
-			$args['per_page'] = $GLOBALS['cfg']['api_per_page_maximum'];
-		}
+		api_utils_ensure_pagination_args($args);
 
 		$rsp = open311_services_get_services($args);
 
 		$out = array(
-			'total' => $rsp['pagination']['total_count'],
-			'page' => $rsp['pagination']['page'],
-			'per_page' => $rsp['pagination']['per_page'],
-			'pages' => $rsp['pagination']['page_count'],
 			'services' => $rsp['rows'],
 		);
 
+		api_utils_ensure_pagination_results($out, $rsp['pagination']);
 		return api_output_ok($out);
 	}
 

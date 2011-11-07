@@ -15,6 +15,7 @@
 	loadlib("api_auth");
 	loadlib("api_keys");
 	loadlib("api_output");
+	loadlib("api_utils");
 
 	#################################################################
 
