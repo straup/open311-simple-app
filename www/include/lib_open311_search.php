@@ -88,7 +88,6 @@
 		# this needs a bit more thought than I can give it right now
 		# (20111031/straup)
 
-		/*
 		if (isset($args['created'])){
 
 			list($start, $stop) = open311_when_parse($args['created']);
@@ -98,11 +97,13 @@
 				$query[] = "created='{$enc_start}'";
 			}
 
-			else {
+			else if ($start && $stop){
 				$enc_start = AddSlashes($start);
 				$enc_stop = AddSlashes($stop);
 				$query[] = "created BETWEEN '{$enc_start}' AND '{$enc_stop}'";
 			}
+
+			else {}
 		}
 
 		if (isset($args['modified'])){
@@ -114,14 +115,15 @@
 				$query[] = "last_modified='{$enc_start}'";
 			}
 
-			else {
+			else if ($start && $stop){
 				$enc_start = AddSlashes($start);
 				$enc_stop = AddSlashes($stop);
 				$query[] = "last_modified BETWEEN '{$enc_start}' AND '{$enc_stop}'";
 			}
+
+			else {}
 		}
 
-		*/
 
 		if (isset($args['where'])){
 

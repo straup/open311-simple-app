@@ -3,7 +3,7 @@
 	##############################################################################
 
 	function open311_when_is_valid_date($str){
-		$dt = _open311_prep_datetime($start, 0);
+		$dt = _open311_when_prep_datetime($str, 0);
 		return ($dt) ? 1 : 0;
 	}
 
