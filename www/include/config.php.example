@@ -12,13 +12,17 @@
 
 	$GLOBALS['cfg']['db_main'] = array(
 		'host'	=> 'localhost',
-		'user'	=> 'root',
-		'pass'	=> 'root',
-		'name'	=> 'flamework',
+		'user'	=> 'open311',
+		'pass'	=> 'CHANGEME',
+		'name'	=> 'open311',
 		'auto_connect' => 0,
 	);
 
+	# by default this runs with poorman's federation
+	# enabled so you can ignore this until you need
+	# to federate (see below)
 
+	/*
 	$GLOBALS['cfg']['db_users'] = array(
 
 		'host' => array(
@@ -34,6 +38,7 @@
 			2 => 'user2',
 		),
 	);
+	*/
 
 	$GLOBALS['cfg']['abs_root_url']		= 'http://'.($_SERVER['SERVER_NAME'] ? $_SERVER['SERVER_NAME'] : 'fake.com').'/';
 	$GLOBALS['cfg']['safe_abs_root_url']	= $GLOBALS['cfg']['abs_root_url'];
@@ -42,7 +47,7 @@
 	$GLOBALS['cfg']['smarty_compile_dir'] = realpath(dirname(__FILE__) . '/../templates_c/');
 
 
-	# No, seriously. Change these...
+	# No, seriously. Change these. See also: bin/generate_secret.php
 
 	$GLOBALS['cfg']['crypto_cookie_secret'] = '';
 	$GLOBALS['cfg']['crypto_password_secret'] = '';
@@ -71,7 +76,7 @@
 	# Set this to 'prod' for production use
 	#
 
-	$GLOBALS['cfg']['environment'] = 'dev';
+	$GLOBALS['cfg']['environment'] = 'prod';
 
 
 	#
@@ -103,13 +108,7 @@
 	# to a single database.
 	#
 
-	$GLOBALS['cfg']['db_enable_poormans_federation'] = 0;
-
-	$GLOBALS['cfg']['db_enable_poormans_slaves'] = 0;
-
-	$GLOBALS['cfg']['db_poormans_slaves_user'] = '';
-	$GLOBALS['cfg']['db_poormans_slaves_pass'] = '';
-
+	$GLOBALS['cfg']['db_enable_poormans_federation'] = 1;
 
 	#
 	# For when you want to use tickets but can't tweak
@@ -119,8 +118,7 @@
 	# application needs db tickets.
 	#
 
-	$GLOBALS['cfg']['db_enable_poormans_ticketing'] = 0;
-
+	$GLOBALS['cfg']['db_enable_poormans_ticketing'] = 1;
 
 	#
 	# This will assign $pagination automatically for smarty
@@ -131,19 +129,15 @@
 	$GLOBALS['cfg']['pagination_per_page'] = 10;
 	$GLOBALS['cfg']['pagination_spill'] = 2;
 
-	$GLOBALS['cfg']['geo_geocoding_service'] = 'yahoo';
-	$GLOBALS['cfg']['geo_geocoding_yahoo_apikey'] = '';
-
-
 	#
 	# Feature flags
 	#
 
-	$GLOBALS['cfg']['enable_feature_signup'] = 1;
-	$GLOBALS['cfg']['enable_feature_signin'] = 1;
+	$GLOBALS['cfg']['enable_feature_signup'] = 0;
+	$GLOBALS['cfg']['enable_feature_signin'] = 0;
 	$GLOBALS['cfg']['enable_feature_persistent_login'] = 1;
-	$GLOBALS['cfg']['enable_feature_account_delete'] = 1;
-	$GLOBALS['cfg']['enable_feature_password_retrieval'] = 1;
+	$GLOBALS['cfg']['enable_feature_account_delete'] = 0;
+	$GLOBALS['cfg']['enable_feature_password_retrieval'] = 0;
 
 
 	#
