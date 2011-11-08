@@ -1,7 +1,9 @@
 {include file='inc_head.txt'}
 
-<h1>Hello World</h1>
+<h1>Open311 Simple</h1>
 
-<p>Ok. Looks like you got flamework installed.</p>
+<p>This is a reference / proof-of-concept implementation of the <a href="https://github.com/straup/open311-simple">Open311 Simple API</a>. None of the data or services here should be considered permanent or reliable.</p>
+
+<p><a href="{$cfg.abs_root_url}api/methods/">API documentation</a></p>
 
 {include file='inc_foot.txt'}
