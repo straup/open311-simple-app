@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+	ServerName open311.example.com
+	# ServerAdmin webmaster@localhost
+
+	DocumentRoot /usr/local/open311-simple-app/www
+
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+
+	<Directory /usr/local/open311-simple-app/www>
+		Options FollowSymLinks Indexes
+		AllowOverride FileInfo Limit
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
