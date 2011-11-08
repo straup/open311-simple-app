@@ -139,6 +139,9 @@
 	$GLOBALS['cfg']['enable_feature_account_delete'] = 0;
 	$GLOBALS['cfg']['enable_feature_password_retrieval'] = 0;
 
+	$GLOBALS['cfg']['enable_feature_api'] = 1;
+	$GLOBALS['cfg']['api_per_page_max'] = 500;
+	$GLOBALS['cfg']['api_per_page_default'] = 100;
 
 	#
 	# enable this flag to show a full call chain (instead of just the
