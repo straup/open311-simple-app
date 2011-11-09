@@ -65,7 +65,7 @@
 
 		"open311.incidents.addNote": {
 			"description": "Add an additional note to an incident report.",
-			"enabled": 0,
+			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
 			"method": "POST",
